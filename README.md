@@ -1,6 +1,5 @@
 <h1 align=center>ipid-util</h1>
 <p align=center>My common, open-source utilities. Support Java 8+.</p>
-
 <br>
 
 ## What's included
@@ -38,3 +37,8 @@ Tuple2.of(null, "123");
 Pair.of(null, "123");
 ```
 
+<br>
+
+## License
+
+The project is released under MIT license.
