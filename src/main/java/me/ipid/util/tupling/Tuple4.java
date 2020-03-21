@@ -39,7 +39,7 @@ public class Tuple4<T0, T1, T2, T3>
         if (nullCheck && (
                 a == null || b == null || c == null || d == null
         )) {
-            throw new IllegalArgumentException("Elements of a tuple can't be null");
+            throw new NullPointerException("Elements of a tuple can't be null");
         }
 
         this.a = a;

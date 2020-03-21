@@ -48,7 +48,7 @@ public class Tuple2<T0, T1>
         if (nullCheck && (
                 a == null || b == null
         )) {
-            throw new IllegalArgumentException("Elements of a tuple can't be null");
+            throw new NullPointerException("Elements of a tuple can't be null");
         }
 
         this.a = a;

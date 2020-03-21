@@ -51,7 +51,7 @@ public class Tuple1<T0>
         if (nullCheck && (
                 a == null
         )) {
-            throw new IllegalArgumentException("Elements of a tuple can't be null");
+            throw new NullPointerException("Elements of a tuple can't be null");
         }
 
         this.a = a;
