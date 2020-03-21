@@ -34,7 +34,7 @@ And since Optional<T> is shipping since Java 8, there is no need for `null` in J
 Tuple2.of(null, "123");
 
 // Nothing throws with Apache Commons Lang
-Pair.of(null, "123");
+Pair.with(null, "123");
 ```
 
 <br>
