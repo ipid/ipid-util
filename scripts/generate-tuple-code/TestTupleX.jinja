@@ -1,0 +1,88 @@
+package me.ipid.util.tupling;
+
+import com.google.common.collect.Streams;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+@SuppressWarnings({"ResultOfMethodCallIgnored"})
+class TestTuple{{num}} {
+
+    private static class C {
+    }
+
+    private static final int ELEMENT_NUM_MAX = {{uplim}};
+
+    private static Tuple0 t0;{% for i in range(1, uplim+1) %}
+    private static Tuple{{i}}<{{ cjoin(wrapper_types[:i]) }}> t{{i}};{% endfor %}
+
+    @BeforeAll
+    public static void initializeTuples() {
+{% for i in range(uplim+1) %}        t{{i}} = Tuple{{i}}.of({{ cjoin(init_val[:i]) }});
+{% endfor %}    }
+{% if num > 0 %}
+    @Test
+    public void test_Tuple{{num}}_instantiate() {
+        Tuple{{num}}.of({{ cjoin(init_val[:num]) }});{% for i in range(num) %}
+        assertThrows(NullPointerException.class, () -> Tuple{{num}}.of({{ cjrep(init_val[:num], i, 'null') }}));{% endfor %}
+{% if num >= 2 %}
+        // Test: 2 null elements
+        assertThrows(NullPointerException.class, () -> Tuple{{num}}.of({{ cjoin(rep(rep(init_val[:num], 0, 'null'), num-1, 'null')) }}));
+{% endif %}
+        // Test: skipping null check
+        new Tuple{{num}}<{{ cjoin('C' * num) }}>({{ cjoin(['null'] * (num + 1)) }}, false);
+    }
+{% endif %}{% if num > 0 %}
+    @Test
+    public void test_Tuple{{num}}_get() {
+{% for i in range(num) %}        assertEquals({{ init_val[i] }}, t{{num}}.{{chr(97+i)}});
+        assertEquals({{ init_val[i] }}, t{{num}}.get{{chr(65+i)}}());
+        assertEquals({{ init_val[i] }}, t{{num}}.get({{i}}));
+{% endfor %}    }
+{% endif %}
+    @Test
+    public void test_Tuple{{num}}_add() {
+        assertEquals(t{{num}}.add(t0), t{{num}});{% for i in range(1, uplim - num + 1) %}
+        assertEquals(t{{num}}.add(Tuple{{i}}.of({{ cjoin(init_val[num:num+i]) }})), t{{ num+i }});{% endfor %}
+
+        assertThrows(NullPointerException.class, () -> t{{num}}.add((Tuple0) null));{% for i in range(1, uplim - num + 1) %}
+        assertThrows(NullPointerException.class, () -> t{{num}}.add((Tuple{{i}}<{{ cjoin(['C']*i) }}>) null));{% endfor %}
+    }
+{% if num > 0 %}
+    @Test
+    public void test_Tuple{{num}}_notEquals() {
+{% for i in range(num) %}        assertNotEquals(t{{num}}, Tuple{{num}}.of({{ cjrep(init_val[:num], i, smaller_val[i]) }}));
+{% endfor %}
+        assertNotEquals(t{{num}}, null);
+        assertNotEquals(t{{num}}, "tuple");
+    }
+{% endif %}
+    @Test
+    public void test_Tuple{{num}}_clone() {
+        Tuple{{num}}{% if num > 0 %}<{{ cjoin(wrapper_types[:num]) }}>{% endif %} tClone = t{{num}}.clone();
+        assertNotSame(t{{num}}, tClone);
+        assertEquals(t{{num}}, tClone);
+    }
+{% if num > 0 %}
+    @Test
+    public void test_Tuple{{num}}_compare() {
+{% for i in range(num) %}        assertTrue(t{{num}}.compareTo(Tuple{{num}}.of({{ cjrep(init_val[:num], i, smaller_val[i]) }})) > 0);
+{% endfor %}
+{% for i in range(num) %}{% if init_val[i] != greater_val[i] %}        assertTrue(t{{num}}.compareTo(Tuple{{num}}.of({{ cjrep(init_val[:num], i, greater_val[i]) }})) < 0);
+{% endif %}{% endfor %}
+        assertThrows(NullPointerException.class, () -> t{{num}}.compareTo(null));
+    }
+{% endif %}
+    @Test
+    public void test_Tuple{{num}}_hashCode() {
+        Tuple{{num}}{% if num > 0 %}<{{ cjoin(wrapper_types[:num]) }}>{% endif %} another = Tuple{{num}}.of({{ cjoin(init_val[:num]) }});
+        assertEquals(t{{num}}.hashCode(), another.hashCode());{% if num > 0 %}
+
+        Tuple{{num}}<{{ cjoin(wrapper_types[:num]) }}> different;
+{% for i in range(num) %}
+        different = Tuple{{num}}.of({{ cjrep(init_val[:num], i, smaller_val[i]) }});
+        assertNotEquals(t{{num}}.hashCode(), different.hashCode());{% endfor %}{% endif %}
+    }
+
+}

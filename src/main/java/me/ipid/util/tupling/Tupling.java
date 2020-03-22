@@ -10,6 +10,22 @@ public abstract class Tupling
     private static final long serialVersionUID = 927504735772663261L;
     protected Object[] valueList;
 
+    @SuppressWarnings("unchecked")
+    protected static int compare(Tupling curr, Tupling other) {
+        if (other == null) {
+            throw new NullPointerException("Comparing tupling to null");
+        }
+
+        for (int i = 0; i < curr.valueList.length; i++) {
+            int res = ((Comparable) curr.valueList[i]).compareTo(other.valueList[i]);
+            if (res != 0) {
+                return res;
+            }
+        }
+
+        return 0;
+    }
+
     /**
      * Get the value at a specific position in the tuple.
      * When index is out of bound, throw IllegalArgumentException.
@@ -50,24 +66,9 @@ public abstract class Tupling
         return Arrays.hashCode(valueList);
     }
 
-    @SuppressWarnings("unchecked")
-    protected static int compare(Tupling curr, Tupling other) {
-        if (other == null) {
-            throw new NullPointerException("Comparing tupling to null");
-        }
-
-        for (int i = 0; i < curr.valueList.length; i++) {
-            int res = ((Comparable) curr.valueList[i]).compareTo((Comparable) other.valueList[i]);
-            if (res != 0) {
-                return res;
-            }
-        }
-
-        return 0;
-    }
-
     /**
      * Method for test purpose.
+     *
      * @return valueList
      */
     protected Object[] getValueList() {

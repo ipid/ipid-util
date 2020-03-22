@@ -8,9 +8,12 @@
 
 The project contains Tupling, a non-nullable, type-safe tuple library for Java. Though projects like [commons-lang3](http://commons.apache.org/proper/commons-lang/), [javatuples](https://www.javatuples.org/) have already provided similar tuple libraries, they did not provide features like:
 
+- Support up to 26 tuples
+  - Can't be more because there are too few letters in English
 - Null checking
 - Tuple concatenation
 - Public final field for elements
+- Shortened member accessing codes
 
 When using **javatuples**, you'll have to write something like:
 
@@ -33,9 +36,11 @@ And since Optional<T> is shipping since Java 8, there is no need for `null` in J
 // Throws NullPointerException using Tupling
 Tuple2.of(null, "123");
 
-// Nothing throws with Apache Commons Lang
+// Nothing throws with Apache Commons Lang or javatuples
 Pair.with(null, "123");
 ```
+
+**Attention:** The code is automatically generated. Modify those template files named `*.jinja` under `/scripts/generate-tuple-code`, if you want to make some changes.
 
 <br>
 

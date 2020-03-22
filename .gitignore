@@ -152,7 +152,7 @@ buildNumber.properties
 # Avoid ignoring Maven wrapper jar file (.jar files are usually ignored)
 !/.mvn/wrapper/maven-wrapper.jar
 
-.idea/
+**/.idea/
 
 # Ignore generated sources because they can be generated on my own
 /generated-src/

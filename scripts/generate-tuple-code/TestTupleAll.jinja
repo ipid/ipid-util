@@ -1,0 +1,72 @@
+package me.ipid.util.tupling;
+
+import com.google.common.collect.Streams;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+@SuppressWarnings({"UnstableApiUsage"})
+class TestTupleAll {
+
+    private static final int ELEMENT_NUM_MAX = {{uplim}};
+
+    private static Tuple0 t0;{% for i in range(1, uplim+1) %}
+    private static Tuple{{i}}<{{ cjoin(wrapper_types[:i]) }}> t{{i}};{% endfor %}
+
+    @BeforeAll
+    public static void initializeTuples() {
+{% for i in range(uplim+1) %}        t{{i}} = Tuple{{i}}.of({{ cjoin(init_val[:i]) }});
+{% endfor %}    }
+
+    @Test
+    public void test_Tupling_getSize() {
+{% for i in range(uplim+1) %}        assertEquals(t{{i}}.getValueList().length, t{{i}}.getSize());
+{% endfor %}    }
+
+    @Test
+    public void test_Tupling_iterator() {
+        Streams.mapWithIndex(Streams.stream(t{{uplim}}), (elem, index) -> {
+            assertEquals(elem, t{{uplim}}.getValueList()[(int)index]);
+            return null;
+        });
+    }
+
+    @Test
+    public void test_elements() {
+{% for i in range(uplim+1) %}        assertArrayEquals(new Object[]{ {{ cjoin(init_val[:i]) }} }, t{{i}}.getValueList());
+{% endfor %}    }
+
+    public void checkGetException(Tupling tuple, int elementNum) {
+        // Test: normal get
+        for (int i = 0; i < elementNum; i++) {
+            tuple.get(i);
+        }
+
+        // Test: get element that is out of bound
+        assertThrows(IllegalArgumentException.class, () -> tuple.get(-2));
+        assertThrows(IllegalArgumentException.class, () -> tuple.get(-1));
+        for (int i = elementNum; i <= ELEMENT_NUM_MAX + 1; i++) {
+            final int toGet = i;
+            assertThrows(IllegalArgumentException.class, () -> tuple.get(toGet));
+        }
+    }
+
+    @Test
+    public void test_AllTuple_get() {
+{% for i in range(uplim+1) %}        checkGetException(t{{i}}, {{i}});
+{% endfor %}    }
+
+    @Test
+    public void test_AllTuple_equals() {
+{% for i in range(uplim+1) %}        assertEquals(t{{i}}, t{{i}});
+        assertEquals(t{{i}}, Tuple{{i}}.of({{ cjoin(init_val[:i]) }}));
+{% endfor %}    }
+
+    @Test
+    public void test_AllTuple_compare() {
+{% for i in range(uplim+1) %}        assertEquals(0, t{{i}}.compareTo(t{{i}}));
+        assertEquals(0, t{{i}}.compareTo(Tuple{{i}}.of({{ cjoin(init_val[:i]) }})));
+{% endfor %}    }
+
+}

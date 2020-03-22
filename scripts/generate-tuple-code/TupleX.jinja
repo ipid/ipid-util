@@ -1,0 +1,104 @@
+/* GENERATED CODE. DO NOT MODIFY */
+package me.ipid.util.tupling;
+
+import java.util.Arrays;{% if num == 2 %}
+import java.util.Map;{% endif %}
+
+public class Tuple{{num}}<{{type}}>
+    extends Tupling
+    implements Comparable<Tuple{{num}}<{{type}}>>{% if num == 2 %}, Map.Entry<T0, T1>{% endif %} {
+
+    private static final long serialVersionUID = {{uid}}L;
+{% for i in range(num) %}    public final T{{i}} {{ chr(97+i) }};
+{% endfor %}
+    public static <{{static_type}}> Tuple{{num}}<{{static_type}}> of(
+            {{static_declares}}) {
+        return new Tuple{{num}}<>(
+                {{args}});
+    }
+
+    public Tuple{{num}}<{{type}}> add(Tuple0 tX) {
+        nullCheckOfAdd(tX);
+        return this;
+    }
+{% for k in range(1, uplim - num + 1) %}
+    public <{{joiner('E{}',num,num+k)}}> Tuple{{num+k}}<{{type}}, {{joiner('E{}',num,num+k)}}> add(Tuple{{k}}<{{joiner('E{}',num,num+k)}}> tX) {
+        nullCheckOfAdd(tX);
+        return new Tuple{{num+k}}<>({{args}}, {{member_gen(0,k)}});
+    }
+{% endfor %}{% for s in range(0, num) %}
+    public <E> Tuple{{num}}<{{ set_type(num,s) }}> set{{ chr(65+s) }}(E elem) {
+        return new Tuple{{num}}<>({{ set_elem(num,s) }});
+    }
+{% endfor %}
+    protected Tuple{{num}}({{declares}}) {
+        this(
+                {{args}},
+                new Object[]{{ '{' }}{{args}}{{ '}' }},
+                true
+        );
+    }
+
+    protected Tuple{{num}}(
+            {{declares}},
+            Object[] valueList, boolean nullCheck) {
+
+        if (nullCheck && (
+                {{null_checks}}
+        )) {
+            throw new NullPointerException("Elements of a tuple can't be null");
+        }
+
+{% for i in range(num) %}        this.{{chr(97+i)}} = {{chr(97+i)}};
+{% endfor %}        this.valueList = valueList;
+    }
+
+{% for i in range(num) %}    public T{{i}} get{{chr(65+i)}}() {
+        return {{chr(97+i)}};
+    }
+
+{% endfor %}    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Tuple{{num}}<{{questions}}>)) {
+            return false;
+        }
+{% if num == 1 %}        return a.equals(((Tuple1<?>) o).a);
+{% else %}        return Arrays.equals(valueList, ((Tuple{{num}}<{{questions}}>) o).valueList);
+{% endif %}    }
+
+    @Override
+    public int compareTo(Tuple{{num}}<{{type}}> tuple) {
+        return compare(this, tuple);
+    }
+
+    @Override
+    public Tuple{{num}}<{{type}}> clone() {
+        return new Tuple{{num}}<>(
+                {{args}},
+                valueList, false);
+    }{% if num == 2 %}
+
+    @Override
+    public T0 getKey() {
+        return a;
+    }
+
+    @Override
+    public T1 getValue() {
+        return b;
+    }
+
+    /**
+     * Tuple2 is immutable. Call setValue will throw an exception.
+     *
+     * @param value Doesn't matter
+     * @return N/A
+     */
+    @Override
+    public T1 setValue(T1 value) {
+        throw new UnsupportedOperationException("tupling.Tuple2 is immutable");
+    }{% endif %}
+}
