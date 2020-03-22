@@ -4,8 +4,8 @@ from typing import Any, List
 
 from jinja2 import Template
 
-MAX_TUPLE = 26
-REPEAT = 3
+MAX_TUPLE = 8
+REPEAT = 1
 
 WRAPPER_TYPES = (['Byte', 'Short', 'Integer', 'Long', 'Float', 'Double', 'Character', 'Boolean', 'String'] * REPEAT)[
                 :MAX_TUPLE]
