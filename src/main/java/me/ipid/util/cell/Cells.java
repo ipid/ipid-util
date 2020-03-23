@@ -8,6 +8,10 @@ public class Cells {
         return new Cell<>(elem);
     }
 
+    public static <E> Cell<E> empty() {
+        return new Cell<>(null);
+    }
+
     public static CellByte of(byte elem) {
         return new CellByte(elem);
     }
