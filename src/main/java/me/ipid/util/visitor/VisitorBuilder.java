@@ -1,9 +1,5 @@
 package me.ipid.util.visitor;
 
-interface VisitHandler<TMatch> {
-    void handle(TMatch obj);
-}
-
 public class VisitorBuilder<T> {
     private T elem;
     private boolean matched;
