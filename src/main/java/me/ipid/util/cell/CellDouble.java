@@ -1,6 +1,6 @@
 package me.ipid.util.cell;
 
-public class CellDouble {
+public final class CellDouble {
     public double v;
 
     public CellDouble(double v) {

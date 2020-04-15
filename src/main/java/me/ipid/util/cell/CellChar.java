@@ -1,6 +1,6 @@
 package me.ipid.util.cell;
 
-public class CellChar {
+public final class CellChar {
     public char v;
 
     public CellChar(char v) {

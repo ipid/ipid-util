@@ -4,7 +4,7 @@ package me.ipid.util.tupling;
 import java.util.Arrays;
 import java.util.Map;
 
-public class Tuple2<T0, T1>
+public final class Tuple2<T0, T1>
     extends Tupling
     implements Comparable<Tuple2<T0, T1>>, Map.Entry<T0, T1> {
 

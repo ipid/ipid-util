@@ -1,6 +1,6 @@
 package me.ipid.util.cell;
 
-public class CellShort {
+public final class CellShort {
     public short v;
 
     public CellShort(short v) {

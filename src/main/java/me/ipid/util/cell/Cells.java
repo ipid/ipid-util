@@ -1,6 +1,6 @@
 package me.ipid.util.cell;
 
-public class Cells {
+public final class Cells {
     private Cells() {
     }
 

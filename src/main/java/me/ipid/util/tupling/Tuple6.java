@@ -3,7 +3,7 @@ package me.ipid.util.tupling;
 
 import java.util.Arrays;
 
-public class Tuple6<T0, T1, T2, T3, T4, T5>
+public final class Tuple6<T0, T1, T2, T3, T4, T5>
     extends Tupling
     implements Comparable<Tuple6<T0, T1, T2, T3, T4, T5>> {
 

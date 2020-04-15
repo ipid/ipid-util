@@ -1,6 +1,6 @@
 package me.ipid.util.visitor;
 
-public class SubclassVisitor {
+public final class SubclassVisitor {
     private SubclassVisitor() {
     }
 

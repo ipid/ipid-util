@@ -1,6 +1,6 @@
 package me.ipid.util.cell;
 
-public class CellInt {
+public final class CellInt {
     public int v;
 
     public CellInt(int v) {

@@ -1,6 +1,6 @@
 package me.ipid.util.cell;
 
-public class CellBool {
+public final class CellBool {
     public boolean v;
 
     public CellBool(boolean v) {

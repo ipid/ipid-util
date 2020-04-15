@@ -1,6 +1,6 @@
 package me.ipid.util.visitor;
 
-public class VisitorBuilder<T> {
+public final class VisitorBuilder<T> {
     private T elem;
     private boolean matched;
 

@@ -4,7 +4,7 @@ package me.ipid.util.tupling;
 import java.util.Arrays;{% if num == 2 %}
 import java.util.Map;{% endif %}
 
-public class Tuple{{num}}<{{type}}>
+public final class Tuple{{num}}<{{type}}>
     extends Tupling
     implements Comparable<Tuple{{num}}<{{type}}>>{% if num == 2 %}, Map.Entry<T0, T1>{% endif %} {
 

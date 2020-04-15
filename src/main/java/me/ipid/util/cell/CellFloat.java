@@ -1,6 +1,6 @@
 package me.ipid.util.cell;
 
-public class CellFloat {
+public final class CellFloat {
     public float v;
 
     public CellFloat(float v) {
