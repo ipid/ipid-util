@@ -1,4 +1,4 @@
-package me.ipid.util.lazyinit;
+package me.ipid.util.lateinit;
 
 public final class ValueNotInitException extends RuntimeException {
     public ValueNotInitException(String message) {
