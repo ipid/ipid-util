@@ -25,4 +25,8 @@ public final class LateInit<T> {
 
         value = newValue;
     }
+
+    public boolean initialized() {
+        return value != null;
+    }
 }
